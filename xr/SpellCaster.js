@@ -5,9 +5,9 @@ import Shapes from './spells/Shapes';
 import Mandlebrot from './spells/Mandelbort';
 import Koch4D from './spells/Koch';
 import BKStar from './spells/BKStar';
-import itemManager from './ItemManager';
 import Bruno from './spells/Bruno';
 import { BrunoDomain } from './spells/Bruno';
+
 // Talk to this to cast spells 
 
 class SpellCaster extends THREE.Group {
