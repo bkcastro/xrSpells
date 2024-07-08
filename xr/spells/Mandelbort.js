@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Spell from './Spell';
 
-// Load shaders
 const vertexShader = `
     varying vec3 vPosition;
 
@@ -10,7 +9,8 @@ const vertexShader = `
         gl_PointSize = 1.25;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
-    `;  // Load vertex.glsl content
+    `;
+
 const fragmentShader = `
     precision mediump float;
     varying vec3 vPosition;
@@ -33,7 +33,7 @@ const fragmentShader = `
 
         gl_FragColor = vec4(color, 1.0);
     }
-    `; // Load fragment.glsl content
+    `;
 
 function generateMandelbrot3D(width, height, depth, maxIterations) {
     const geometry = new THREE.BufferGeometry();
@@ -92,15 +92,15 @@ class Mandlebrot extends Spell {
 
         const points = new THREE.Points(mandelbrotGeometry, particleMaterial);
         points.scale.multiplyScalar(1 / 50);
-        this.group.add(points);
 
+        this.group.add(points);
         this.bb.scale.multiplyScalar(1.2);
     }
 
     animate() {
-        this.rotation.x += 0.0001;
-        this.rotation.y += 0.0001;
-        this.rotation.z += 0.0001;
+        this.group.rotation.x += 0.0001;
+        this.group.rotation.y += 0.0001;
+        this.group.rotation.z += 0.0001;
     }
 }
 

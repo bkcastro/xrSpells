@@ -63,6 +63,7 @@ export const images = [
     './images/spells/bkStar.png',
     './images/spells/koch.png',
     './images/spells/shapes.png',
+    './images/spells/bruno.png',
 ]
 
 export const spellList = [
@@ -71,4 +72,5 @@ export const spellList = [
     'bkStar',
     'koch',
     'shapes',
+    'bruno',
 ]

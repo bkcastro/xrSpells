@@ -1,8 +1,15 @@
 import * as THREE from 'three';
 
+
+
 // What if our spells don't have objects the user can iteract with? what if the spell does? how do I handle this? 
 
 // For now a spell is a simple experiences that is made with three.js 
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+    wireframe: true,
+});
 
 class Spell extends THREE.Object3D {
     constructor() {
@@ -14,12 +21,7 @@ class Spell extends THREE.Object3D {
         // You put everything you want to render here
         this.group = new THREE.Group();
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshStandardMaterial({
-            color: 0xff0000,
-            wireframe: true,
-        });
-
+        // define bounding box can be scaled by user to match creation. 
         this.bb = new THREE.Mesh(geometry, material);
         this.bb.userData.type = 'spell_bb';
         this.bb.visible = false;
@@ -31,7 +33,7 @@ class Spell extends THREE.Object3D {
         this.add(this.group);
     }
 
-    uncast() { // this gets rid of all of 
+    uncast() {
         this.remove(this.group);
     }
 
@@ -41,7 +43,7 @@ class Spell extends THREE.Object3D {
 
     update(time) {
 
-        if (!this.position.equals(this.bb.position)) {
+        if (!this.position.equals(this.bb.position)) { // Update the position of the group to match the bb
             this.position.copy(this.bb.position);
             this.group.position.copy(this.bb.position);
         }

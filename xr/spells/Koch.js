@@ -104,16 +104,16 @@ class Koch extends THREE.Group {
         });
     }
 
-    processFractalQueue() {
+    #processFractalQueue() {
 
         if (this.fractalQueue.length > 0) {
             const task = this.fractalQueue.shift();
             create3DKochFractal(this.points, this.angle, this.fractalQueue, task.iterations, task.length, task.start, task.end, task.directions);
-            this.updateGeometry();
+            this.#updateGeometry();
         }
     }
 
-    updateGeometry() {
+    #updateGeometry() {
         const positions = this.geometry.attributes.position.array;
         for (let i = 0; i < this.points.length; i++) {
             positions[i] = this.points[i];
@@ -122,7 +122,7 @@ class Koch extends THREE.Group {
     }
 
     update() {
-        this.processFractalQueue();
+        this.#processFractalQueue();
     }
 }
 

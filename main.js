@@ -36,7 +36,7 @@ function init() {
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x118080);
-  //scene.add(new THREE.AxesHelper(1));
+  scene.add(new THREE.AxesHelper(1));
 
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
   camera.position.set(0, 3, 3);
@@ -76,7 +76,7 @@ function init() {
 
   // controllers
 
-  // orbitControls = new OrbitControls(camera, renderer.domElement);
+  orbitControls = new OrbitControls(camera, renderer.domElement);
 
   mouse = new THREE.Vector2();
 
@@ -137,7 +137,7 @@ function init() {
   // Lets add some spells
   spellCaster.scale.multiplyScalar(1 / 2);
   spellCaster.position.set(.5, 1.25, 0);
-  spellCaster.castSpell('julia');
+  //spellCaster.castAll();
   scene.add(spellCaster);
 
   window.addEventListener('resize', onWindowResize);
@@ -173,9 +173,11 @@ function onSelect(event) {
     raycaster.setFromXRController(controller);
   }
 
+  const temp = [mainUI];
 
+  if (spellCaster.spell) { temp.push(spellCaster.spell.bb) }
 
-  const intersects = raycaster.intersectObjects([spellCaster.spell.bb, mainUI]);
+  const intersects = raycaster.intersectObjects(temp);
 
   if (intersects.length > 0) {
 
