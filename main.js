@@ -4,9 +4,8 @@ import { XRButton } from 'three/addons/webxr/XRButton.js';
 import { XRControllerModelFactory } from 'three/addons/webxr/XRControllerModelFactory.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
-import spellCaster from './xr/SpellCaster';
-import itemManager from './xr/ItemManager';
-import MainUI from './xr/MainUI';
+import SpellCaster from './xr/SpellCaster';
+import SpellCasterUI from './xr/SpellCasterUI';
 
 let container;
 let camera, scene, renderer, clock, orbitControls;
@@ -17,7 +16,7 @@ let raycaster;
 
 let controls, group;
 
-let items, mainUI;
+let spellCaster, spellCasterUI;
 
 // debug 
 
@@ -35,8 +34,8 @@ function init() {
   document.body.appendChild(container);
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x118080);
-  scene.add(new THREE.AxesHelper(1));
+  scene.background = new THREE.Color(Math.random(), Math.random(), Math.random());
+  // scene.add(new THREE.AxesHelper(1));
 
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
   camera.position.set(0, 3, 3);
@@ -119,7 +118,7 @@ function init() {
 
   line = new THREE.Line(geometry);
   line.name = 'line';
-  line.scale.z = 5;
+  line.scale.z = 1;
 
   raycaster = new THREE.Raycaster();
 
@@ -130,15 +129,17 @@ function init() {
 
   //
 
-  mainUI = new MainUI();
-  mainUI.position.set(-0.5, 1.0, -0.25);
-  scene.add(mainUI);
-
   // Lets add some spells
+  spellCaster = new SpellCaster();
   spellCaster.scale.multiplyScalar(1 / 2);
-  spellCaster.position.set(.5, 1.25, 0);
+  spellCaster.position.set(.5, 1.25, -1);
   //spellCaster.castAll();
   scene.add(spellCaster);
+
+  spellCasterUI = new SpellCasterUI(spellCaster);
+  spellCasterUI.scale.multiplyScalar(1 / 2);
+  spellCasterUI.position.set(-0.2, 1.05, -0.25);
+  scene.add(spellCasterUI);
 
   window.addEventListener('resize', onWindowResize);
 
@@ -173,9 +174,14 @@ function onSelect(event) {
     raycaster.setFromXRController(controller);
   }
 
-  const temp = [mainUI];
+  const temp = [spellCasterUI];
 
-  if (spellCaster.spell) { temp.push(spellCaster.spell.bb) }
+  if (spellCaster.spell) {
+    temp.push(spellCaster.spell.bb)
+  } else {
+    console.log("hi")
+    temp.push(spellCaster.cross);
+  }
 
   const intersects = raycaster.intersectObjects(temp);
 
@@ -246,7 +252,7 @@ function animate() {
 
   const elapsed = clock.getElapsedTime();
 
-  mainUI.update();
+  spellCasterUI.update();
   spellCaster.update(elapsed);
 
   renderer.render(scene, camera);

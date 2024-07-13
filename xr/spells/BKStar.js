@@ -37,6 +37,7 @@ class BKStar extends Spell {
 
         // name the spell 
         this.userData.name = 'bkStar';
+        this.userData.image = './images/spells/bkStar.png';
 
         const material = new THREE.ShaderMaterial({
             vertexShader: vertexShader,

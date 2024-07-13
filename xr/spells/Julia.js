@@ -42,8 +42,9 @@ class Julia extends Spell {
     constructor() {
         super();
 
-        // name the spell 
+        // name the spell and add the image source
         this.userData.name = 'julia';
+        this.userData.image = './images/spells/julia.png';
 
         const c = new THREE.Vector3(-2 * Math.random(), -Math.random(), Math.random()); // Adjust these for different Julia sets
 

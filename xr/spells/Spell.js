@@ -1,7 +1,5 @@
 import * as THREE from 'three';
 
-
-
 // What if our spells don't have objects the user can iteract with? what if the spell does? how do I handle this? 
 
 // For now a spell is a simple experiences that is made with three.js 
@@ -26,7 +24,6 @@ class Spell extends THREE.Object3D {
         this.bb.userData.type = 'spell_bb';
         this.bb.visible = false;
         this.add(this.bb);
-
     }
 
     cast() {

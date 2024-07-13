@@ -79,6 +79,7 @@ class Mandlebrot extends Spell {
 
         // name the spell 
         this.userData.name = 'mandlebrot';
+        this.userData.image = './images/spells/mandlebrot.png';
 
         const mandelbrotGeometry = generateMandelbrot3D(60, 60, 60, 100);
         const particleMaterial = new THREE.ShaderMaterial({

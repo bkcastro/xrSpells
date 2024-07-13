@@ -30,11 +30,11 @@ const vertexShader = `
 
         modelPosition.x = sin(angle) * distanceToCenter; 
         modelPosition.z = cos(angle) * distanceToCenter;
-        modelPosition.y = sin(angle) * distanceToCenter;
+        modelPosition.y = tan(angle) * distanceToCenter;
 
         modelPosition.x += aRandom.x; 
         modelPosition.y += aRandom.y; 
-        modelPosition.z += aRandom.z * uTime * 2.0;
+        modelPosition.z += aRandom.z;
 
         vec4 projectedPosition = projectionMatrix * viewMatrix * modelPosition;
         gl_Position = projectedPosition;
@@ -58,10 +58,10 @@ const fragmentShader = `
 const parameters = {
     count: 50000,
     size: 0.05,
-    radius: 2,
-    branches: 20,
-    spin: 1,
-    randomness: 0.1,
+    radius: 3,
+    branches: 2,
+    spin: 2,
+    randomness: 0.2,
     randomnessPower: 10,
     insideColor: '#0b1304',
     outsideColor: '#fe1212',
@@ -170,14 +170,15 @@ class BrunoDomain extends Spell {
         super();
 
         this.userData.name = 'bruno';
+        this.userData.image = './images/spells/bruno.png';
 
         this.bruno_1 = new Bruno();
         this.bruno_1.scale.multiplyScalar(2);
-        this.bruno_2 = new Bruno();
-
         this.bruno_1.cast();
+
+        this.bruno_2 = new Bruno();
         this.bruno_2.cast();
-        this.bruno_2.scale.multiplyScalar(1 / 2);
+        this.bruno_2.scale.multiplyScalar(2);
         this.bruno_2.rotation.x = Math.PI;
         this.bruno_2.rotation.z = -Math.PI;
 
@@ -195,5 +196,4 @@ class BrunoDomain extends Spell {
     }
 }
 
-export { BrunoDomain }
-export default Bruno; 
+export default BrunoDomain; 

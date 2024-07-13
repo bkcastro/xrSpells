@@ -9,6 +9,7 @@ class Shapes extends Spell {
 
         // name the spell 
         this.userData.name = 'shapes';
+        this.userData.image = './images/spells/shapes.png';
 
         const geometries = [
             new THREE.BoxGeometry(0.2, 0.2, 0.2),

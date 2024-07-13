@@ -132,6 +132,7 @@ class Koch4D extends Spell {
 
         // name the spell 
         this.userData.name = 'koch';
+        this.userData.image = './images/spells/koch.png';
 
         const angle = 180 * Math.random()
 
