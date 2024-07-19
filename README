@@ -2,8 +2,8 @@
 
 **xrSpells** is an immersive AR/VR application developed using Three.js, Three-Mesh-UI for the user interface, and WebXR for system control. This project brings magical spells to life in augmented and virtual reality environments. It is specifically developed for the Oculus Quest 3.
 
-![xrSpells Demo1](./demo1.gif)  <!-- Relative path to the GIF file -->
-![xrSpells Demo2](./demo2.gif)  <!-- Relative path to the GIF file -->
+![xrSpells Demo1](./demo1.gif) 
+![xrSpells Demo2](./demo2.gif)  
 
 ## Features
 

@@ -22,6 +22,21 @@ let spellCaster, spellCasterUI;
 
 let stats;
 
+// Function to handle when the XR session starts
+function onSessionStart(session) {
+
+  // Lets add some spells
+  spellCaster = new SpellCaster();
+  spellCaster.scale.multiplyScalar(1 / 2);
+  spellCaster.position.set(0.2, 1.25, -1);
+
+  spellCasterUI = new SpellCasterUI(spellCaster);
+  spellCasterUI.scale.multiplyScalar(1 / 2);
+  spellCasterUI.position.set(-0.2, 1.25, -0.25);
+
+}
+
+
 init();
 
 function init() {
@@ -38,8 +53,7 @@ function init() {
   // scene.add(new THREE.AxesHelper(1));
 
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
-  camera.position.set(0, 3, 3);
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
+  camera.position.set(0, 0, .5);
 
   const floorGeometry = new THREE.PlaneGeometry(6, 6);
   const floorMaterial = new THREE.ShadowMaterial({ opacity: 0.25, blending: THREE.CustomBlending, transparent: false });
@@ -71,7 +85,11 @@ function init() {
   renderer.xr.setFoveation(0.0);
   container.appendChild(renderer.domElement);
 
-  document.body.appendChild(XRButton.createButton(renderer));
+  // renderer.xr.addEventListener('sessionstart', () => onSessionStart(renderer.xr.getSession()));
+
+  const enterXRButton = XRButton.createButton(renderer)
+  document.body.appendChild(enterXRButton);
+
 
   // controllers
 
@@ -131,14 +149,14 @@ function init() {
 
   // Lets add some spells
   spellCaster = new SpellCaster();
-  spellCaster.scale.multiplyScalar(1 / 2);
-  spellCaster.position.set(.5, 1.25, -1);
+  spellCaster.scale.multiplyScalar(1 / 3);
+  spellCaster.position.set(.25, .1, -1);
   //spellCaster.castAll();
   scene.add(spellCaster);
 
   spellCasterUI = new SpellCasterUI(spellCaster);
   spellCasterUI.scale.multiplyScalar(1 / 2);
-  spellCasterUI.position.set(-0.2, 1.05, -0.25);
+  spellCasterUI.position.set(-0.2, 0, 0);
   scene.add(spellCasterUI);
 
   window.addEventListener('resize', onWindowResize);
@@ -195,16 +213,14 @@ function onSelect(event) {
         controls.attach(object);
         break;
       case 'ui_image':
-        console.log("trigger some action which is associated with the object");
+        // trigger some action which is associated with the object
         object.userData.action();
         controls.detach();
         break;
       case 'spell_bb':
         controls.attach(object);
         break;
-
     }
-
   } else {
     controls.detach();
   }

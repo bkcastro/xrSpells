@@ -1,7 +1,5 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import ThreeMeshUI from 'three-mesh-ui';
-import { playlists, images } from '../utils.js';
 
 const selectedAttributes = {
     offset: 0.002,
