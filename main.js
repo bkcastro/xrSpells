@@ -22,21 +22,6 @@ let spellCaster, spellCasterUI;
 
 let stats;
 
-// Function to handle when the XR session starts
-function onSessionStart(session) {
-
-  // Lets add some spells
-  spellCaster = new SpellCaster();
-  spellCaster.scale.multiplyScalar(1 / 2);
-  spellCaster.position.set(0.2, 1.25, -1);
-
-  spellCasterUI = new SpellCasterUI(spellCaster);
-  spellCasterUI.scale.multiplyScalar(1 / 2);
-  spellCasterUI.position.set(-0.2, 1.25, -0.25);
-
-}
-
-
 init();
 
 function init() {
@@ -85,7 +70,32 @@ function init() {
   renderer.xr.setFoveation(0.0);
   container.appendChild(renderer.domElement);
 
-  // renderer.xr.addEventListener('sessionstart', () => onSessionStart(renderer.xr.getSession()));
+  // Handle Entering XR Mode
+  renderer.xr.addEventListener('sessionstart', () => {
+    console.log('XR session started');
+    // Your custom code here
+    if (spellCaster) {
+      spellCaster.position.set(0.2, 1.25, -1);
+    }
+   
+    if(spellCasterUI) {
+      spellCasterUI.position.set(-0.2, 1.25, -0.5);
+    }
+  
+  });
+
+  // Handle Exiting XR Mode
+  renderer.xr.addEventListener('sessionend', () => {
+    console.log('XR session ended');
+    // Your custom code here
+    if (spellCaster) {
+      spellCaster.position.set(.25, .1, -1);
+    }
+   
+    if(spellCasterUI) {
+      spellCasterUI.position.set(-0.2, 0, 0);
+    }
+  });
 
   const enterXRButton = XRButton.createButton(renderer)
   document.body.appendChild(enterXRButton);
